@@ -1,0 +1,11 @@
+# Prerequisites:
+# - Python installed
+# - pre-commit installed (pip install pre-commit)
+# - git available in PATH
+# To install hooks: pre-commit install
+# To run on all files: pre-commit run --all-files
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks
