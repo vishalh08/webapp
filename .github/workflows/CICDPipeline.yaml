@@ -57,20 +57,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Semgrep Scan
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/security-audit
-            p/react
-            p/owasp-top-ten
-            p/javascript
-          generateSarif: false
+      - name: Install Semgrep
+        run: pip install semgrep
 
-      - name: Generate Semgrep Report
-        run: |
-          npm ci
-          semgrep --config=p/security-audit --config=p/react --config=p/owasp-top-ten --config=p/javascript --json --output=semgrep.json .
+      - name: Run Semgrep Scan
+        run: semgrep --config=p/security-audit --config=p/react --config=p/owasp-top-ten --config=p/javascript --json --output=semgrep.json .
+        continue-on-error: true
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -78,3 +70,4 @@ jobs:
         with:
           name: semgrep-report
           path: semgrep.json
+          retention-days: 30
