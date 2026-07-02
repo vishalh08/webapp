@@ -50,3 +50,27 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  # Semgrep Security Scanning Job
+  semgrep-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Semgrep Scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          generateSarif: true
+          config: >-
+            p/security-audit
+            p/react
+            p/owasp-top-ten
+            p/cwe-top-25
+            p/javascript
+
+      - name: Upload SARIF Report
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
