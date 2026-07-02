@@ -60,16 +60,15 @@ jobs:
       - name: Run Semgrep Scan
         uses: returntocorp/semgrep-action@v1
         with:
-          args: >-
-            --config=p/security-audit
-            --config=p/react
-            --config=p/owasp-top-ten
-            --config=p/javascript
-            --json
-            --output=semgrep.json
+          config: >-
+            p/security-audit
+            p/react
+            p/owasp-top-ten
+            p/javascript
+          args: --json --output=semgrep.json
 
       - name: Upload SARIF Report
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: semgrep.json
