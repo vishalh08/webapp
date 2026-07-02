@@ -5,8 +5,8 @@ name: CI/CD - Netlify production build
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events
-  push:
-    branches: ["main", "main-netlify-github-build"]
+  # push:
+  #   branches: ["main", "main-netlify-github-build"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
