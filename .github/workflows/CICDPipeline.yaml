@@ -75,9 +75,6 @@ jobs:
   # Retire.js SCA Scan
   retirejs-scan:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: webapp
     steps:
       - uses: actions/checkout@v4
 
