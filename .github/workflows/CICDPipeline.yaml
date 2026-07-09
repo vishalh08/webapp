@@ -71,3 +71,34 @@ jobs:
           name: semgrep-report
           path: semgrep.json
           retention-days: 30
+
+  # Retire.js SCA Scan
+  retirejs-scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: webapp
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node.js Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Retire.js SCA
+        run: |
+          npx retire --path . --outputformat json --outputpath retirejs-report.json || true
+        continue-on-error: true
+
+      - name: Upload Retire.js Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: retirejs-report
+          path: retirejs-report.json
+          retention-days: 30
