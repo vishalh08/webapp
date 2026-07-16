@@ -140,6 +140,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [semgrep-scan, gitleaks-scan, retirejs-scan]
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download Semgrep artifact
         uses: actions/download-artifact@v4
         with:
