@@ -80,11 +80,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Gitleaks
+        run: |
+          curl -sL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz | tar xz
+          chmod +x gitleaks
+
       - name: Run GitLeaks Scan
-        uses: gitleaks/gitleaks-action@v3
-        with:
-          config_path: .gitleaks.toml
-          args: "--verbose --report-format=json --report-path=gitleaks.json"
+        run: |
+          if [ -f .gitleaks.toml ]; then
+            ./gitleaks detect --source . --config-path .gitleaks.toml --report-format json --report-path gitleaks.json || true
+          else
+            ./gitleaks detect --source . --report-format json --report-path gitleaks.json || true
+          fi
         continue-on-error: true
 
       - name: Upload GitLeaks Report
