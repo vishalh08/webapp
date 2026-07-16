@@ -172,6 +172,7 @@ jobs:
         env:
           DEFECTDOJO_API_TOKEN: ${{ secrets.DEFECTDOJO_API_TOKEN }}
           DEFECTDOJO_IMPORT_URL: ${{ secrets.DEFECTDOJO_IMPORT_URL }}
+          DEFECTDOJO_ENGAGEMENT_ID: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
         run: |
           python upload_reports.py gitleaks.json
           python upload_reports.py semgrep.json

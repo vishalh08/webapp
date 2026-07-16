@@ -32,8 +32,11 @@ data = {
     'verified': True,
     'scan_type': scan_type,
     'minimum_severity': 'Low',
-    'engagement': 19
 }
+
+engagement_id = os.getenv('DEFECTDOJO_ENGAGEMENT_ID')
+if engagement_id:
+    data['engagement'] = engagement_id
 
 with open(file_name, 'rb') as f:
     files = {'file': f}
