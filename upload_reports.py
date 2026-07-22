@@ -14,7 +14,7 @@ elif file_name == 'semgrep.json':
     scan_type = 'Semgrep JSON Report'
 elif file_name == 'retire.json':
     scan_type = 'Retire.js Scan'
-elif file_name == 'report_json.json':
+elif file_name == 'report_json.json' or file_name == 'report_xml.xml':
     scan_type = 'ZAP Scan'
 else:
     raise SystemExit(f"Unsupported report file: {file_name}")
