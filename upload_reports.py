@@ -14,11 +14,14 @@ elif file_name == 'semgrep.json':
     scan_type = 'Semgrep JSON Report'
 elif file_name == 'retire.json':
     scan_type = 'Retire.js Scan'
+elif file_name == 'report_json.json':
+    scan_type = 'ZAP Scan'
 else:
     raise SystemExit(f"Unsupported report file: {file_name}")
 
 if not os.path.exists(file_name):
-    raise SystemExit(f"Report file not found: {file_name}")
+    print(f"Report file not found, skipping upload: {file_name}")
+    sys.exit(0)
 
 url = os.getenv('DEFECTDOJO_IMPORT_URL', 'https://demo.defectdojo.org/api/v2/import-scan/')
 token = os.getenv('DEFECTDOJO_API_TOKEN')
